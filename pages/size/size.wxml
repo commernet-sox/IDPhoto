@@ -1,0 +1,55 @@
+<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">规格说明</view>
+</cu-custom>
+
+<view class="">
+    <swiper class="screen-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+        <swiper-item wx:for="{{swiperList}}" wx:key="index">
+            <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+            <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+        </swiper-item>
+    </swiper>
+</view>
+
+
+<view class="bg-white padding-lr">
+    <view class="solids-bottom padding-xs flex align-center">
+        <view class="solid-bottom text-xl padding">
+            <text class=" text-black text-bold">{{title}}</text>
+            <text class="text-grey">（规格说明）</text>
+        </view>
+    </view>
+    <view class="solids-bottom padding-xs flex align-center">
+        <view class="solid-bottom text-xl padding">
+            <text class=" text-black text-bold">{{name}}</text>
+            <text class="text-grey">（像素尺寸）</text>
+        </view>
+    </view>
+    <view class="solids-bottom padding-xs flex align-center">
+        <view class="solid-bottom text-xl padding">
+            <text class=" text-black text-bold">{{icon}}</text>
+            <text class="text-grey">（冲印尺寸）</text>
+        </view>
+    </view>
+    <view class="solids-bottom padding-xs flex align-center">
+        <view class="solid-bottom text-xl padding">
+            <button class="cu-btn sm icon round lines-black"></button>
+            <button class="cu-btn sm icon bg-blue"></button>
+            <button class="cu-btn sm icon bg-red"></button>
+            <button class="cu-btn sm icon bg-gradual-blue"></button>
+            <button class="cu-btn sm icon bg-gradual-red"></button>
+            <button class="cu-btn sm icon bg-gradual-grey"></button>
+            <text class="text-grey">（可选背景颜色）</text>
+        </view>
+    </view>
+    <view class="bg-white solid-bottom margin-top flex padding justify-around">
+        <button class="cu-btn round bg-blue lg around" bindtap="selectPic"><text class="cuIcon-picfill"></text>相册</button>
+        <button class="cu-btn round bg-blue lg around" bindtap="cameraPic"><text class="cuIcon-camerafill"></text>拍照</button>
+    </view>
+</view>
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <!-- <view class='cuIcon-emojifill text-orange'></view> -->
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{tips}}</view>
+</view>

@@ -1,0 +1,61 @@
+<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">预览效果</view>
+</cu-custom>
+<view class="canvas-container" style="position: fixed;top: -1000px;left: -1000px;z-index: -1000;">
+    <canvas type="2d" canvas-id="canvas" id="canvas" class="my_canvas" style="background-color: {{bgColor}};width: {{width}}px;height: {{height}}px;"></canvas>
+</view>
+
+<view class="imgContainer">
+    <!-- <image class="" src="{{path}}" mode="aspectFill" style="width: {{width}}rpx;height: {{height}}rpx;background-color: {{bgColor}};"></image> -->
+    <image src="data:image/png;base64,{{base64Img}}" style="width: {{width}}rpx;height: {{height}}rpx;background-color: {{bgColor}};"></image>
+
+</view>
+
+<view class="bg-white padding-lr">
+    <view class="solids-bottom padding-xs flex align-center">
+        <view class="solid-bottom text-xl padding">
+            <text class=" text-black text-bold">{{title}}</text>
+            <text class="text-grey">（规格说明）</text>
+        </view>
+    </view>
+    <view class="solids-bottom padding-xs flex align-center">
+        <view class="solid-bottom text-xl padding">
+            <text class=" text-black text-bold">{{name}}</text>
+            <text class="text-grey">（像素尺寸）</text>
+        </view>
+    </view>
+    <view class="solids-bottom padding-xs flex align-center">
+        <view class="solid-bottom text-xl padding">
+            <text class=" text-black text-bold">{{icon}}</text>
+            <text class="text-grey">（冲印尺寸）</text>
+        </view>
+    </view>
+    <view class="padding-xs  align-center center">（请选择背景颜色）</view>
+    <view class="solids-bottom padding-xs flex align-center">
+        <!-- <view class="solid-bottom text-xl padding">
+            <button class="cu-btn sm icon round lines-black" ></button>
+            <button class="cu-btn sm icon bg-blue"></button>
+            <button class="cu-btn sm icon bg-red"></button>
+            <button class="cu-btn sm icon bg-gradual-blue"></button>
+            <button class="cu-btn sm icon bg-gradual-red"></button>
+            <button class="cu-btn sm icon bg-gradual-grey"></button>
+            <text class="text-grey">（可选背景颜色）</text>
+        </view> -->
+        <view class="grid col-6 padding-sm">
+            <view class="padding-sm" wx:for="{{colorList}}" bindtap='checked' data-index='{{index}}' wx:key="id">
+                <view class="{{item.name}} padding radius text-center shadow-blur {{item.isSelected?'active':''}}">
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="bg-white solid-bottom margin-top flex padding justify-around">
+        <button class="cu-btn round bg-blue lg around" bindtap="savePic"><text class="cuIcon-picfill"></text>保存</button>
+        <button class="cu-btn round bg-blue lg around" bindtap="goBack"><text class="cuIcon-back"></text>返回</button>
+    </view>
+</view>
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <!-- <view class='cuIcon-emojifill text-orange'></view> -->
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{tips}}</view>
+</view>

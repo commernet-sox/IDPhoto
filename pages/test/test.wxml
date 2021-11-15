@@ -1,0 +1,4 @@
+<view class="intro">
+  <canvas id="canvas" class="my_canvas" type="2d" style="width: 750rpx; height: 1334rpx"></canvas>
+  <image src="{{imgSrc}}" style="width:500px;height:753px"></image>
+</view>

@@ -1,0 +1,39 @@
+/* pages/picture/picture.wxss */
+
+.picBg{
+    background-color:#3ca6f1;
+}
+.imgContainer{
+    text-align: center;
+}
+.my_canvas{
+    position: fixed;
+}
+.center{
+    text-align: center;
+}
+.active::before{
+    opacity: 1 !important;
+    left: 5px !important;
+    filter: none !important;
+    width: 24rpx !important;
+    height: 24rpx !important;
+    font-family: "cuIcon";
+    content: "\e645";
+    position: absolute;
+    color: var(--black) !important;
+    top: 50%;
+    margin-top: -8px;
+    right: 5px;
+    font-size: 32rpx;
+    font-weight: bolder;
+    line-height: 16px;
+    pointer-events: none;
+    transform: scale(1, 1);
+    transition: all 0.3s ease-in-out 0s;
+    z-index: 9;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    transition-property: all;
+}

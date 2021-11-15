@@ -1,0 +1,8 @@
+/* pages/test/test.wxss */
+.intro {
+    text-align: center;
+  }
+  
+  .my_canvas{
+    display: none;
+  }

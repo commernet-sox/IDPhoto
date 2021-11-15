@@ -1,0 +1,29 @@
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content">首页</view>
+</cu-custom>
+<view class="">
+  <swiper class="screen-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+    <swiper-item wx:for="{{swiperList}}" wx:key="index">
+      <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+      <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+    </swiper-item>
+  </swiper>
+</view>
+<scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}">
+  <view class="cu-item {{index==TabCur?'text-green cur':''}}" wx:for="{{navList}}" wx:for-item="item" wx:key="index" bindtap="tabSelect" data-id="{{index}}">
+    {{item.name}}
+  </view>
+</scroll-view>
+
+<view class="nav-list">
+  <!-- <text>{{TabCur}}</text> -->
+</view>
+
+<view class='nav-list'>
+  <navigator hover-class='none' url="/pages/size/size?title={{item.title}}&name={{item.name}}&icon={{item.icon}}&px={{item.px}}" class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key="index">
+    <view class="nav-title">{{item.title}}</view>
+    <view class="nav-name">{{item.name}}</view>
+    <view class="nav-name">{{item.icon}}</view>
+    <!-- <text class='cuIcon-{{item.icon}}'></text> -->
+  </navigator>
+</view>
