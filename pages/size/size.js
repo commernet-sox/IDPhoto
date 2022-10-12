@@ -49,18 +49,48 @@ Page({
     isSuccess:true,
   },
   //事件处理函数
+  //相册选择图片 chooseImage弃用
   selectPic(e) {
     var _this = this;
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
-      sourceType: ['album'],
+      sourceType: ['album'],//从相册选图
       success(res) {
         // tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths
         console.log(tempFilePaths)
         _this.formatKS(tempFilePaths);
         // _this.toPicture(tempFilePaths)
+      }
+    })
+  },
+  selectNewPic(e) {
+    var _this = this;
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album'],
+      sizeType:['original'],
+      success(res) {
+        console.log(res)
+        console.log("图片路径:"+res.tempFiles[0].tempFilePath)
+        console.log("图片大小:"+res.tempFiles[0].size)
+        // const tempFilePaths = res.tempFiles[0].tempFilePath
+        _this.getBase64Pic(res.tempFiles[0].tempFilePath);
+        //_this.formatKS(tempFilePaths);
+      }
+    })
+  },
+  //临时图片地址转Base64
+  getBase64Pic(path){
+    var _this = this;
+    wx.getFileSystemManager().readFile({
+      filePath:path,
+      encoding:'base64',
+      success:res=>{
+        console.log(res.data)
+        _this.formatBaiduKT(res.data);
       }
     })
   },
@@ -91,6 +121,7 @@ Page({
 
 
   },
+  //跳转到图片保存页
   toPicture(path) {
     var _this = this;
     console.log("toPicture...")
@@ -117,6 +148,19 @@ Page({
       }
     })
   },
+  //获取token
+  getAccessToken(){
+    wx.request({
+      url: 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=ydEfViLlfBwhgudV5Rvgf4G2&client_secret=YQx7N090UjGtNNVljHHP7MQcgTq3Vruh',
+      method:'POST',
+      success(res){
+        const data = JSON.parse(res.data)
+        console.log(data)
+        console.log(data.access_token)
+      }
+    })
+  },
+  //调用旷视接口抠图
   formatKS(path) {
     var _this = this;
     _this.setData({
@@ -165,6 +209,65 @@ Page({
         if(_this.data.isSuccess)
         {
           _this.toPicture(path)
+        }
+
+      }
+    })
+  },
+
+  //调用百度接口抠图
+  formatBaiduKT(path){
+    var _this = this;
+    _this.setData({
+      tips: "加载中...",
+      loadModal: true
+    })
+    // var img=wx.getFileSystemManager().readFileSync(path[0]);
+    // console.log("img="+img);
+    console.log(app.globalData.base64Img)
+    console.log("token"+app.globalData.access_token)
+    wx.request({
+      url: 'https://aip.baidubce.com/rest/2.0/image-classify/v1/body_seg?access_token='+app.globalData.access_token,
+      header : {
+        'content-type':'application/x-www-form-urlencoded'
+      },
+      method:'POST',
+      data: {
+        'image': path,
+        'type': 'foreground',
+      },
+      success(res) {
+        console.log(res.data)
+        const data = res.data
+        console.log("抠图结果"+data)
+        if(data.foreground=="")
+        {
+          _this.setData({
+            isSuccess:false,
+          })
+          wx.showToast({
+            title: '抠图失败。'+data.error_msg,
+          })
+        }
+        else
+        {
+          _this.setData({
+            isSuccess:true,
+          })
+        }
+        
+        console.log(data.foreground)
+        _this.app.globalData.base64Img = data.foreground;
+        console.log(app.globalData.base64Img)
+        //do something
+      },
+      complete(res) {
+        _this.setData({
+          loadModal: false
+        })
+        if(_this.data.isSuccess)
+        {
+          _this.toPicture(_this.app.globalData.base64Img)
         }
 
       }

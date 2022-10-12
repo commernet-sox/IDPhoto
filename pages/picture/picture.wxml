@@ -33,15 +33,6 @@
     </view>
     <view class="padding-xs  align-center center">（请选择背景颜色）</view>
     <view class="solids-bottom padding-xs flex align-center">
-        <!-- <view class="solid-bottom text-xl padding">
-            <button class="cu-btn sm icon round lines-black" ></button>
-            <button class="cu-btn sm icon bg-blue"></button>
-            <button class="cu-btn sm icon bg-red"></button>
-            <button class="cu-btn sm icon bg-gradual-blue"></button>
-            <button class="cu-btn sm icon bg-gradual-red"></button>
-            <button class="cu-btn sm icon bg-gradual-grey"></button>
-            <text class="text-grey">（可选背景颜色）</text>
-        </view> -->
         <view class="grid col-6 padding-sm">
             <view class="padding-sm" wx:for="{{colorList}}" bindtap='checked' data-index='{{index}}' wx:key="id">
                 <view class="{{item.name}} padding radius text-center shadow-blur {{item.isSelected?'active':''}}">

@@ -44,7 +44,7 @@
         </view>
     </view>
     <view class="bg-white solid-bottom margin-top flex padding justify-around">
-        <button class="cu-btn round bg-blue lg around" bindtap="selectPic"><text class="cuIcon-picfill"></text>相册</button>
+        <button class="cu-btn round bg-blue lg around" bindtap="selectNewPic"><text class="cuIcon-picfill"></text>相册</button>
         <button class="cu-btn round bg-blue lg around" bindtap="cameraPic"><text class="cuIcon-camerafill"></text>拍照</button>
     </view>
 </view>

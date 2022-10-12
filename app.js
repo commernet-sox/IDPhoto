@@ -32,6 +32,7 @@ App({
         }
       }
     })
+    
     // 获取系统状态栏信息
     wx.getSystemInfo({
       success: e => {
@@ -46,8 +47,21 @@ App({
       }
     })
   },
+  getAccessToken(){
+    wx.request({
+      url: 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=ydEfViLlfBwhgudV5Rvgf4G2&client_secret=YQx7N090UjGtNNVljHHP7MQcgTq3Vruh',
+      method:'POST',
+      success(res){
+        const data = JSON.parse(res.data)
+        console.log(data)
+        console.log(data.access_token)
+        this.globalData.access_token=data.access_token;
+      }
+    })
+  },
   globalData: {
     userInfo: null,
     base64Img:'',
+    access_token:'24.f2ad6f7ad84e24170cf2d6fc59c8d8ba.2592000.1668144500.282335-27855478'
   }
 })

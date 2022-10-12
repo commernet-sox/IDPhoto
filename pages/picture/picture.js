@@ -86,7 +86,7 @@ Page({
                 px: data.px,
                 width: data.px.split(',')[0],
                 height: data.px.split(',')[1],
-                base64Img: app.globalData.base64Img,
+                base64Img: data.data
             });
         })
         console.log(_this.data.width)
