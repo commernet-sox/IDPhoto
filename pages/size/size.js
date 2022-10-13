@@ -257,7 +257,7 @@ Page({
         }
         
         console.log(data.foreground)
-        _this.app.globalData.base64Img = data.foreground;
+        app.globalData.base64Img = data.foreground;
         console.log(app.globalData.base64Img)
         //do something
       },
@@ -267,7 +267,7 @@ Page({
         })
         if(_this.data.isSuccess)
         {
-          _this.toPicture(_this.app.globalData.base64Img)
+          _this.toPicture(app.globalData.base64Img)
         }
 
       }

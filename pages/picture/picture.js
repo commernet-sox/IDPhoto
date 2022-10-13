@@ -94,6 +94,7 @@ Page({
         console.log("onLoad...")
 
     },
+    //保存图片
     savePic(e) {
         var _this = this;
         if (_this.data.imgSrc == "") {
@@ -123,11 +124,13 @@ Page({
             })
         }
     },
+    //返回上一页
     goBack(e) {
         wx.navigateBack({
             delta: 1,
         })
     },
+    //选择底色重新生成图片
     checked(e) {
         console.log(e)
         var _this = this;
@@ -154,12 +157,14 @@ Page({
             })
             .exec((res) => {
                 const canvas = res[0].node
-                const ctx = canvas.getContext('2d')
+                
+                //获取当前设备像素比
                 const dpr = wx.getSystemInfoSync().pixelRatio
                 console.log(res,dpr)
-                canvas.width = res[0].width
-                canvas.height = res[0].height
-                // ctx.scale(dpr, dpr)
+                canvas.width = res[0].width*dpr
+                canvas.height = res[0].height*dpr
+                const ctx = canvas.getContext('2d')
+                ctx.scale(dpr, dpr)
                 // ctx.fillRect(0, 0, 100, 100)
                 ctx.fillStyle = _this.data.bgColor;
                 ctx.setStrokeStyle = '#fff';
@@ -169,7 +174,7 @@ Page({
                 // img.src = '../../images/test1.jpg';
                 img.src = 'data:image/png;base64,'+_this.data.base64Img
                 img.onload=(e)=>{
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, res[0].width, res[0].height);
                     wx.canvasToTempFilePath({
                         canvas:canvas,
                         // canvasId: 'canvas',
